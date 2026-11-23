@@ -1,0 +1,54 @@
+.app {
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.skyPlaceholder {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 78% 58% at 56% 43%,
+    rgba(23, 38, 74, 0.9) 0%,
+    rgba(8, 20, 41, 0.95) 52%,
+    rgba(4, 11, 23, 1) 100%
+  );
+}
+
+.relationNote {
+  position: absolute;
+  left: 50%;
+  bottom: 148px;
+  transform: translateX(-50%);
+  z-index: 25;
+  max-width: min(720px, 88vw);
+  padding: 9px 18px;
+  border: 1px solid rgba(220, 192, 136, 0.34);
+  border-radius: 999px;
+  background: rgba(6, 16, 34, 0.88);
+  backdrop-filter: blur(12px);
+  color: #e8d4ac;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+  text-align: center;
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .relationNote {
+    width: max-content;
+    top: 136px;
+    bottom: auto;
+    max-width: calc(100vw - 28px);
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 9px;
+  }
+
+  .relationNote[data-state="idle"] {
+    top: auto;
+    bottom: 126px;
+  }
+}

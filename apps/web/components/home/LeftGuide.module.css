@@ -1,0 +1,54 @@
+.guide {
+  position: absolute;
+  z-index: 12;
+  left: 4.3%;
+  bottom: 175px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #b7c5d9;
+  max-width: 230px;
+  pointer-events: none;
+}
+
+.heading {
+  color: #e7d5b2;
+  font-family: var(--font-title);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #d9b77e;
+  box-shadow: 0 0 12px rgba(237, 204, 146, 0.66);
+}
+
+.dotLarge {
+  width: 13px;
+  height: 13px;
+}
+
+@media (max-width: 700px) {
+  .guide {
+    bottom: 162px;
+    left: 6%;
+    gap: 10px;
+    max-width: 190px;
+  }
+
+  .item {
+    font-size: 10px;
+  }
+}

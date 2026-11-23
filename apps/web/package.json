@@ -1,0 +1,27 @@
+{
+  "name": "@shihe/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@shihe/db": "workspace:*",
+    "@shihe/domain": "workspace:*",
+    "@shihe/sky-layout": "workspace:*",
+    "next": "15.5.29",
+    "pixi.js": "8.23.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "zustand": "5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "5.9.3"
+  }
+}

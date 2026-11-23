@@ -1,0 +1,1416 @@
+{
+  "id": "e5bf280a-1f69-475c-a45c-f70bf9419730",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.app_meta": {
+      "name": "app_meta",
+      "schema": "",
+      "columns": {
+        "key": {
+          "name": "key",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.ingestion_jobs": {
+      "name": "ingestion_jobs",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "dataset_name": {
+          "name": "dataset_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "imported_at": {
+          "name": "imported_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "review_status": {
+          "name": "review_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "statistics": {
+          "name": "statistics",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {
+        "ingestion_jobs_imported_idx": {
+          "name": "ingestion_jobs_imported_idx",
+          "columns": [
+            {
+              "expression": "imported_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.layout_positions": {
+      "name": "layout_positions",
+      "schema": "",
+      "columns": {
+        "poet_id": {
+          "name": "poet_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mode": {
+          "name": "mode",
+          "type": "sky_mode",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "x": {
+          "name": "x",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "y": {
+          "name": "y",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "layout_version": {
+          "name": "layout_version",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "layout_positions_mode_idx": {
+          "name": "layout_positions_mode_idx",
+          "columns": [
+            {
+              "expression": "mode",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "layout_version",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "layout_positions_bbox_idx": {
+          "name": "layout_positions_bbox_idx",
+          "columns": [
+            {
+              "expression": "mode",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "layout_version",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "x",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "y",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "layout_positions_poet_id_poets_id_fk": {
+          "name": "layout_positions_poet_id_poets_id_fk",
+          "tableFrom": "layout_positions",
+          "tableTo": "poets",
+          "columnsFrom": ["poet_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "layout_positions_poet_id_mode_layout_version_pk": {
+          "name": "layout_positions_poet_id_mode_layout_version_pk",
+          "columns": ["poet_id", "mode", "layout_version"]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.periods": {
+      "name": "periods",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "short_name": {
+          "name": "short_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "start_year": {
+          "name": "start_year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "end_year": {
+          "name": "end_year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "period_kind": {
+          "name": "period_kind",
+          "type": "period_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'era'"
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "parallel": {
+          "name": "parallel",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {
+        "periods_sort_order_idx": {
+          "name": "periods_sort_order_idx",
+          "columns": [
+            {
+              "expression": "sort_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.poet_aliases": {
+      "name": "poet_aliases",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "poet_id": {
+          "name": "poet_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "alias": {
+          "name": "alias",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "alias_type": {
+          "name": "alias_type",
+          "type": "alias_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'alias'"
+        }
+      },
+      "indexes": {
+        "poet_aliases_poet_idx": {
+          "name": "poet_aliases_poet_idx",
+          "columns": [
+            {
+              "expression": "poet_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "poet_aliases_alias_idx": {
+          "name": "poet_aliases_alias_idx",
+          "columns": [
+            {
+              "expression": "alias",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "poet_aliases_poet_id_poets_id_fk": {
+          "name": "poet_aliases_poet_id_poets_id_fk",
+          "tableFrom": "poet_aliases",
+          "tableTo": "poets",
+          "columnsFrom": ["poet_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.poet_periods": {
+      "name": "poet_periods",
+      "schema": "",
+      "columns": {
+        "poet_id": {
+          "name": "poet_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "period_id": {
+          "name": "period_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "membership_type": {
+          "name": "membership_type",
+          "type": "membership_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'primary'"
+        },
+        "evidence_id": {
+          "name": "evidence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "poet_periods_poet_id_poets_id_fk": {
+          "name": "poet_periods_poet_id_poets_id_fk",
+          "tableFrom": "poet_periods",
+          "tableTo": "poets",
+          "columnsFrom": ["poet_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "poet_periods_period_id_periods_id_fk": {
+          "name": "poet_periods_period_id_periods_id_fk",
+          "tableFrom": "poet_periods",
+          "tableTo": "periods",
+          "columnsFrom": ["period_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "poet_periods_evidence_id_sources_id_fk": {
+          "name": "poet_periods_evidence_id_sources_id_fk",
+          "tableFrom": "poet_periods",
+          "tableTo": "sources",
+          "columnsFrom": ["evidence_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "poet_periods_poet_id_period_id_pk": {
+          "name": "poet_periods_poet_id_period_id_pk",
+          "columns": ["poet_id", "period_id"]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.poet_relations": {
+      "name": "poet_relations",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "poet_a_id": {
+          "name": "poet_a_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "poet_b_id": {
+          "name": "poet_b_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "relation_type": {
+          "name": "relation_type",
+          "type": "relation_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "direction": {
+          "name": "direction",
+          "type": "relation_direction",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'undirected'"
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "confidence": {
+          "name": "confidence",
+          "type": "confidence",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'low'"
+        },
+        "evidence": {
+          "name": "evidence",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "publish_status": {
+          "name": "publish_status",
+          "type": "publish_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'draft'"
+        }
+      },
+      "indexes": {
+        "poet_relations_a_idx": {
+          "name": "poet_relations_a_idx",
+          "columns": [
+            {
+              "expression": "poet_a_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "poet_relations_b_idx": {
+          "name": "poet_relations_b_idx",
+          "columns": [
+            {
+              "expression": "poet_b_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "poet_relations_poet_a_id_poets_id_fk": {
+          "name": "poet_relations_poet_a_id_poets_id_fk",
+          "tableFrom": "poet_relations",
+          "tableTo": "poets",
+          "columnsFrom": ["poet_a_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "poet_relations_poet_b_id_poets_id_fk": {
+          "name": "poet_relations_poet_b_id_poets_id_fk",
+          "tableFrom": "poet_relations",
+          "tableTo": "poets",
+          "columnsFrom": ["poet_b_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "poet_relations_source_id_sources_id_fk": {
+          "name": "poet_relations_source_id_sources_id_fk",
+          "tableFrom": "poet_relations",
+          "tableTo": "sources",
+          "columnsFrom": ["source_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.poets": {
+      "name": "poets",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "initial": {
+          "name": "initial",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dynasty_label": {
+          "name": "dynasty_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "bio_short": {
+          "name": "bio_short",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "birth_year": {
+          "name": "birth_year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "death_year": {
+          "name": "death_year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "activity_start": {
+          "name": "activity_start",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "activity_end": {
+          "name": "activity_end",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "date_precision": {
+          "name": "date_precision",
+          "type": "date_precision",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'unknown'"
+        },
+        "date_note": {
+          "name": "date_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "impact_tier": {
+          "name": "impact_tier",
+          "type": "impact_tier",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'unranked'"
+        },
+        "impact_sources": {
+          "name": "impact_sources",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "impact_review_note": {
+          "name": "impact_review_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "primary_period_id": {
+          "name": "primary_period_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publish_status": {
+          "name": "publish_status",
+          "type": "publish_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'draft'"
+        },
+        "data_note": {
+          "name": "data_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "poets_publish_status_idx": {
+          "name": "poets_publish_status_idx",
+          "columns": [
+            {
+              "expression": "publish_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "poets_primary_period_idx": {
+          "name": "poets_primary_period_idx",
+          "columns": [
+            {
+              "expression": "primary_period_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "poets_name_idx": {
+          "name": "poets_name_idx",
+          "columns": [
+            {
+              "expression": "name",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "poets_primary_period_id_periods_id_fk": {
+          "name": "poets_primary_period_id_periods_id_fk",
+          "tableFrom": "poets",
+          "tableTo": "periods",
+          "columnsFrom": ["primary_period_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "poets_slug_unique": {
+          "name": "poets_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": ["slug"]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.sources": {
+      "name": "sources",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editor": {
+          "name": "editor",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "edition": {
+          "name": "edition",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "url_or_bib": {
+          "name": "url_or_bib",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "license": {
+          "name": "license",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'unknown'"
+        },
+        "rights_status": {
+          "name": "rights_status",
+          "type": "rights_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending_review'"
+        },
+        "rights_note": {
+          "name": "rights_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "verified_at": {
+          "name": "verified_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.work_authors": {
+      "name": "work_authors",
+      "schema": "",
+      "columns": {
+        "work_id": {
+          "name": "work_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "poet_id": {
+          "name": "poet_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "attribution_type": {
+          "name": "attribution_type",
+          "type": "attribution_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'primary'"
+        },
+        "evidence_id": {
+          "name": "evidence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "work_authors_work_id_works_id_fk": {
+          "name": "work_authors_work_id_works_id_fk",
+          "tableFrom": "work_authors",
+          "tableTo": "works",
+          "columnsFrom": ["work_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "work_authors_poet_id_poets_id_fk": {
+          "name": "work_authors_poet_id_poets_id_fk",
+          "tableFrom": "work_authors",
+          "tableTo": "poets",
+          "columnsFrom": ["poet_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "work_authors_evidence_id_sources_id_fk": {
+          "name": "work_authors_evidence_id_sources_id_fk",
+          "tableFrom": "work_authors",
+          "tableTo": "sources",
+          "columnsFrom": ["evidence_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "work_authors_work_id_poet_id_pk": {
+          "name": "work_authors_work_id_poet_id_pk",
+          "columns": ["work_id", "poet_id"]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.work_sources": {
+      "name": "work_sources",
+      "schema": "",
+      "columns": {
+        "work_id": {
+          "name": "work_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "relation_type": {
+          "name": "relation_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'text'"
+        },
+        "source_locator": {
+          "name": "source_locator",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "work_sources_work_id_works_id_fk": {
+          "name": "work_sources_work_id_works_id_fk",
+          "tableFrom": "work_sources",
+          "tableTo": "works",
+          "columnsFrom": ["work_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "work_sources_source_id_sources_id_fk": {
+          "name": "work_sources_source_id_sources_id_fk",
+          "tableFrom": "work_sources",
+          "tableTo": "sources",
+          "columnsFrom": ["source_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "work_sources_work_id_source_id_pk": {
+          "name": "work_sources_work_id_source_id_pk",
+          "columns": ["work_id", "source_id"]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.work_variants": {
+      "name": "work_variants",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "work_id": {
+          "name": "work_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "variant_text": {
+          "name": "variant_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "variant_note": {
+          "name": "variant_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "work_variants_work_idx": {
+          "name": "work_variants_work_idx",
+          "columns": [
+            {
+              "expression": "work_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "work_variants_work_id_works_id_fk": {
+          "name": "work_variants_work_id_works_id_fk",
+          "tableFrom": "work_variants",
+          "tableTo": "works",
+          "columnsFrom": ["work_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "work_variants_source_id_sources_id_fk": {
+          "name": "work_variants_source_id_sources_id_fk",
+          "tableFrom": "work_variants",
+          "tableTo": "sources",
+          "columnsFrom": ["source_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.works": {
+      "name": "works",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "poet_id": {
+          "name": "poet_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "genre": {
+          "name": "genre",
+          "type": "genre",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'shi'"
+        },
+        "text_original": {
+          "name": "text_original",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "text_normalized": {
+          "name": "text_normalized",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "featured": {
+          "name": "featured",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "attribution_status": {
+          "name": "attribution_status",
+          "type": "attribution_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'attributed'"
+        },
+        "publish_status": {
+          "name": "publish_status",
+          "type": "publish_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'draft'"
+        },
+        "rights_status": {
+          "name": "rights_status",
+          "type": "rights_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending_review'"
+        },
+        "canonical_work_id": {
+          "name": "canonical_work_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "source_locator": {
+          "name": "source_locator",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content_hash": {
+          "name": "content_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sort_index": {
+          "name": "sort_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "works_poet_idx": {
+          "name": "works_poet_idx",
+          "columns": [
+            {
+              "expression": "poet_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "works_publish_status_idx": {
+          "name": "works_publish_status_idx",
+          "columns": [
+            {
+              "expression": "publish_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "works_poet_order_idx": {
+          "name": "works_poet_order_idx",
+          "columns": [
+            {
+              "expression": "poet_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "featured",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "title",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "works_content_hash_idx": {
+          "name": "works_content_hash_idx",
+          "columns": [
+            {
+              "expression": "content_hash",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "works_genre_idx": {
+          "name": "works_genre_idx",
+          "columns": [
+            {
+              "expression": "genre",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "works_poet_id_poets_id_fk": {
+          "name": "works_poet_id_poets_id_fk",
+          "tableFrom": "works",
+          "tableTo": "poets",
+          "columnsFrom": ["poet_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "works_source_id_sources_id_fk": {
+          "name": "works_source_id_sources_id_fk",
+          "tableFrom": "works",
+          "tableTo": "sources",
+          "columnsFrom": ["source_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.alias_type": {
+      "name": "alias_type",
+      "schema": "public",
+      "values": ["courtesy", "art_name", "alias", "variant"]
+    },
+    "public.attribution_status": {
+      "name": "attribution_status",
+      "schema": "public",
+      "values": ["attributed", "disputed", "anonymous"]
+    },
+    "public.attribution_type": {
+      "name": "attribution_type",
+      "schema": "public",
+      "values": ["primary", "secondary", "disputed"]
+    },
+    "public.confidence": {
+      "name": "confidence",
+      "schema": "public",
+      "values": ["high", "medium", "low"]
+    },
+    "public.date_precision": {
+      "name": "date_precision",
+      "schema": "public",
+      "values": ["exact", "approx", "period", "unknown"]
+    },
+    "public.genre": {
+      "name": "genre",
+      "schema": "public",
+      "values": ["shi", "ci", "qu"]
+    },
+    "public.impact_tier": {
+      "name": "impact_tier",
+      "schema": "public",
+      "values": ["A", "B", "C", "unranked"]
+    },
+    "public.membership_type": {
+      "name": "membership_type",
+      "schema": "public",
+      "values": ["primary", "secondary", "transition"]
+    },
+    "public.period_kind": {
+      "name": "period_kind",
+      "schema": "public",
+      "values": ["dynasty", "era", "realm", "literary"]
+    },
+    "public.publish_status": {
+      "name": "publish_status",
+      "schema": "public",
+      "values": ["published", "draft", "retracted"]
+    },
+    "public.relation_direction": {
+      "name": "relation_direction",
+      "schema": "public",
+      "values": ["undirected", "a_to_b", "b_to_a"]
+    },
+    "public.relation_type": {
+      "name": "relation_type",
+      "schema": "public",
+      "values": ["friendship", "teacher_student", "literary_influence", "association", "kinship"]
+    },
+    "public.rights_status": {
+      "name": "rights_status",
+      "schema": "public",
+      "values": ["cleared", "restricted", "pending_review"]
+    },
+    "public.sky_mode": {
+      "name": "sky_mode",
+      "schema": "public",
+      "values": ["river", "galaxy"]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "@shihe/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts",
+    "./server": "./src/queries.ts",
+    "./migrations": "./migrations"
+  },
+  "scripts": {
+    "generate": "drizzle-kit generate",
+    "migrate": "tsx src/migrate.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@shihe/domain": "workspace:*",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "0.45.4",
+    "pg": "8.23.1"
+  },
+  "devDependencies": {
+    "@types/pg": "8.23.1",
+    "drizzle-kit": "0.31.11",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3"
+  }
+}

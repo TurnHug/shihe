@@ -1,0 +1,33 @@
+.teaser {
+  position: absolute;
+  right: 4.6%;
+  bottom: 166px;
+  z-index: 9;
+  text-align: right;
+  pointer-events: none;
+}
+
+.overline {
+  color: #aa9470;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+}
+
+.main {
+  margin-top: 7px;
+  color: #f0e1c7;
+  font-family: var(--font-title);
+  font-size: 24px;
+}
+
+.sub {
+  margin-top: 7px;
+  color: #9ba9bd;
+  font-size: 11px;
+}
+
+@media (max-width: 700px) {
+  .teaser {
+    display: none;
+  }
+}

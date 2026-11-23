@@ -1,0 +1,28 @@
+{
+  "name": "shihe",
+  "version": "0.1.0",
+  "private": true,
+  "description": "诗河 · 千年星图 — 中国古典诗词交互星图",
+  "packageManager": "pnpm@10.33.2",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @shihe/web dev",
+    "build": "pnpm --filter @shihe/web build",
+    "start": "pnpm --filter @shihe/web start",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "eslint .",
+    "db:migrate": "pnpm --filter @shihe/db migrate",
+    "db:seed": "tsx scripts/seed.ts"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "dotenv": "17.4.2",
+    "eslint": "9.39.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.73.0"
+  }
+}

@@ -1,0 +1,282 @@
+.nav {
+  position: absolute;
+  z-index: 30;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 0 4.4%;
+  background: linear-gradient(180deg, rgba(2, 10, 24, 0.86), rgba(2, 11, 25, 0.2));
+  border-bottom: 1px solid rgba(236, 210, 164, 0.09);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 221px;
+  flex-shrink: 0;
+}
+
+.brandMark {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(223, 195, 146, 0.72);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #efdbad;
+  font-family: var(--font-title);
+  font-size: 26px;
+  box-shadow:
+    0 0 24px rgba(220, 174, 106, 0.1),
+    inset 0 0 18px rgba(220, 174, 106, 0.06);
+}
+
+.brandLines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brandName {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.22em;
+  white-space: nowrap;
+}
+
+.brandTag {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: #b9a989;
+  white-space: nowrap;
+}
+
+.modeTabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(11, 22, 42, 0.68);
+  border: 1px solid rgba(213, 205, 179, 0.16);
+  border-radius: 100px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.modeTab {
+  border: 0;
+  background: transparent;
+  color: #a8b8ce;
+  padding: 10px 20px;
+  border-radius: 40px;
+  font-size: 12px;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+  transition:
+    background 0.2s var(--ease-out-soft),
+    color 0.2s var(--ease-out-soft);
+}
+
+.modeTab:hover {
+  color: #e9ddc6;
+}
+
+.modeTabActive {
+  background: linear-gradient(110deg, rgba(204, 169, 102, 0.26), rgba(199, 166, 108, 0.1));
+  color: #f8e4b6;
+  box-shadow: inset 0 0 0 1px rgba(226, 194, 135, 0.28);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+}
+
+.searchButton {
+  height: 38px;
+  min-width: 190px;
+  padding: 0 14px;
+  border: 1px solid rgba(215, 207, 190, 0.18);
+  background: rgba(9, 19, 38, 0.65);
+  border-radius: 50px;
+  color: #8f9bb1;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+
+.searchButton:hover {
+  border-color: rgba(226, 194, 135, 0.4);
+  color: #d9e0eb;
+}
+
+.magnify {
+  font-size: 18px;
+  color: #dbc69c;
+}
+
+.kbd {
+  margin-left: auto;
+  font-size: 10px;
+  opacity: 0.6;
+  font-family: var(--font-ui);
+}
+
+.actionButton {
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(215, 207, 190, 0.18);
+  background: rgba(9, 19, 38, 0.65);
+  border-radius: 50px;
+  color: #d9e0eb;
+  font-size: 12px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.2s var(--ease-out-soft),
+    color 0.2s var(--ease-out-soft);
+}
+
+.actionButton:hover {
+  border-color: rgba(226, 194, 135, 0.45);
+  color: #f2dfba;
+}
+
+.actionButtonActive {
+  border-color: rgba(242, 204, 130, 0.6);
+  background: rgba(195, 151, 76, 0.24);
+  color: #f5d7a0;
+}
+
+.actionButton:disabled {
+  color: #8595a9;
+  cursor: not-allowed;
+}
+
+.actionButton:disabled:hover {
+  border-color: rgba(215, 207, 190, 0.18);
+  color: #8595a9;
+}
+
+.roundButton {
+  width: 38px;
+  padding: 0;
+  font-size: 18px;
+}
+
+@media (max-width: 1180px) {
+  .nav {
+    gap: 14px;
+    padding: 0 2.4%;
+  }
+
+  .brand {
+    min-width: 170px;
+  }
+
+  .brandName {
+    font-size: 18px;
+  }
+
+  .brandTag {
+    display: none;
+  }
+
+  .searchButton {
+    min-width: 44px;
+    width: 43px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .searchPlaceholder,
+  .kbd {
+    display: none;
+  }
+
+  .modeTab {
+    padding: 9px 14px;
+  }
+}
+
+@media (max-width: 900px) {
+  .indexButton {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .nav {
+    height: 67px;
+    padding: 0 16px;
+    gap: 8px;
+  }
+
+  .brand {
+    min-width: auto;
+    gap: 8px;
+  }
+
+  .brandMark {
+    width: 35px;
+    height: 35px;
+    font-size: 21px;
+  }
+
+  .brandName {
+    font-size: 17px;
+    letter-spacing: 0.1em;
+  }
+
+  .modeTabs {
+    position: absolute;
+    top: 77px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    z-index: 6;
+  }
+
+  .modeTab {
+    font-size: 11px;
+    padding: 9px 12px;
+  }
+
+  .actions {
+    margin-left: auto;
+    gap: 7px;
+  }
+
+  .searchButton {
+    height: 35px;
+    width: 35px;
+    min-width: 35px;
+    border-radius: 50%;
+  }
+
+  .relationsButton {
+    height: 35px;
+    padding: 0 9px;
+    font-size: 11px;
+  }
+
+  .actionButton:not(.relationsButton) {
+    display: none;
+  }
+
+  .roundButton {
+    display: none;
+  }
+}

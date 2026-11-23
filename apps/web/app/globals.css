@@ -1,0 +1,186 @@
+:root {
+  /* 设计基线 Tokens（与《诗河·网站视觉设计稿 V1.0》一致） */
+  --color-bg-deep: #071326;
+  --color-bg-deepest: #040b17;
+  --color-bg-panel: #142741;
+  --color-bg-panel-strong: #0b1c33;
+  --color-accent-gold: #dcc18d;
+  --color-accent-gold-bright: #f3d7a2;
+  --color-accent-gold-soft: #e8c894;
+  --color-text-primary: #f5f1e8;
+  --color-text-muted: #aabcd1;
+  --color-text-dim: #7f93ab;
+  --color-border: rgba(220, 193, 141, 0.2);
+  --color-border-soft: rgba(220, 193, 141, 0.11);
+  --color-border-strong: rgba(220, 193, 141, 0.34);
+  --color-overlay: rgba(4, 11, 23, 0.82);
+  --color-danger: #d98f7a;
+  --color-ink-paper: #f1ebdf;
+  --color-ink-text: #322f29;
+  --color-ink-muted: #847964;
+  --color-ink-gold: #a28556;
+
+  --font-title: 'Songti SC', 'STSong', 'Noto Serif CJK SC', 'Source Han Serif SC', 'SimSun', serif;
+  --font-ui:
+    'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', 'Microsoft YaHei',
+    sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --shadow-panel: 0 18px 60px rgba(0, 0, 0, 0.32);
+  --shadow-drawer: -18px 16px 60px rgba(0, 0, 0, 0.3);
+  --shadow-paper: 0 26px 110px rgba(0, 0, 0, 0.36);
+  --shadow-gold: 0 0 24px rgba(220, 174, 106, 0.14);
+
+  --nav-height: 86px;
+  --timeline-height: 104px;
+  --z-sky: 1;
+  --z-labels: 6;
+  --z-hero: 8;
+  --z-guide: 12;
+  --z-timeline: 20;
+  --z-drawer: 30;
+  --z-overlay: 60;
+  --z-reader: 80;
+
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--color-bg-deep);
+  color: var(--color-text-primary);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure {
+  margin: 0;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+::selection {
+  background: rgba(220, 193, 141, 0.32);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-gold);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -60px;
+  z-index: 999;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-gold);
+  color: #16202e;
+  font-weight: 600;
+  transition: top 0.2s var(--ease-out-soft);
+}
+
+.skip-link:focus {
+  top: 14px;
+}
+
+/* 全站背景：深空蓝 + 中心星云微光 + 极细噪点，不参与点击。 */
+.site-background {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 75% 55% at 56% 42%, #17264a 0%, #081429 52%, #040b17 100%),
+    var(--color-bg-deep);
+}
+
+.site-grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

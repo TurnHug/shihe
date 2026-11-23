@@ -1,0 +1,310 @@
+.wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 29px;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: min(1120px, 91%);
+  min-height: var(--timeline-height);
+  padding: 17px 26px 14px;
+  border: 1px solid rgba(224, 198, 153, 0.23);
+  border-radius: 16px;
+  background: rgba(6, 16, 34, 0.83);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.27);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.name {
+  color: #ead8b4;
+  font-family: var(--font-title);
+  font-size: 12px;
+  letter-spacing: 0.13em;
+  white-space: nowrap;
+}
+
+.desc {
+  color: #8f9cb2;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.genreFilter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.genreLabel {
+  color: #768aa2;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  margin-right: 3px;
+}
+
+.genreChip {
+  padding: 3px 9px;
+  border: 1px solid rgba(220, 193, 141, 0.14);
+  border-radius: 999px;
+  color: #9fb0c4;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.genreChip:hover {
+  border-color: rgba(226, 194, 135, 0.36);
+  color: #ecd9b3;
+}
+
+.genreChipActive {
+  background: rgba(204, 169, 102, 0.16);
+  border-color: rgba(226, 194, 135, 0.4);
+  color: #f8e4b6;
+}
+
+.reset {
+  margin-left: 8px;
+  padding: 5px 12px;
+  border: 1px solid rgba(224, 198, 153, 0.22);
+  border-radius: 999px;
+  color: #c9b98f;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+
+.reset:hover {
+  border-color: rgba(224, 198, 153, 0.5);
+  color: #f3dcae;
+}
+
+.track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+.line {
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  top: 6px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #bba16e 24%,
+    #d8c394 52%,
+    #8299b7 76%,
+    transparent
+  );
+  opacity: 0.65;
+}
+
+.item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  background: transparent;
+  border: 0;
+  min-width: 49px;
+  padding: 0;
+  color: #a4b3c7;
+  transition: color 0.2s var(--ease-out-soft);
+}
+
+.item:hover {
+  color: #ecdcbb;
+}
+
+.pin {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #536a88;
+  border: 2px solid #a8b6c6;
+  box-shadow: 0 0 0 4px #0b182b;
+  transition:
+    background 0.2s var(--ease-out-soft),
+    box-shadow 0.2s var(--ease-out-soft);
+}
+
+.label {
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.labelShort {
+  display: none;
+}
+
+.itemActive {
+  color: #ffdfa8;
+}
+
+.itemActive .pin {
+  background: #ffdfa8;
+  border-color: #fff1d0;
+  box-shadow:
+    0 0 0 4px #0b182b,
+    0 0 18px 6px rgba(238, 195, 114, 0.23);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 历史星河：节点对齐天空中的朝代星群，而不是等距排列。 */
+.track[data-mode='river'] {
+  display: block;
+  height: 42px;
+  margin-top: 18px;
+}
+
+.track[data-mode='river'] .item {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  min-width: 0;
+  padding: 0 3px;
+}
+
+.track[data-mode='river'] .label {
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+
+/* 朝代星系模式下条目更少，允许更舒展的间距。 */
+.track[data-mode='galaxy'] .item {
+  min-width: 90px;
+}
+
+@media (max-width: 1180px) {
+  .wrap {
+    width: calc(100% - 60px);
+    padding: 15px 20px 12px;
+  }
+
+  .label {
+    font-size: 10px;
+  }
+
+  .item {
+    min-width: 44px;
+  }
+
+  .track[data-mode='river'] .item {
+    min-width: 0;
+  }
+
+  .track[data-mode='river'] .label {
+    font-size: 9px;
+  }
+
+  .labelFull {
+    display: none;
+  }
+
+  .labelShort {
+    display: inline;
+  }
+}
+
+@media (max-width: 700px) {
+  .track[data-mode='river'] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+  }
+
+  .track[data-mode='river'] .item {
+    position: relative;
+    left: auto !important;
+    transform: none;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .wrap {
+    bottom: 14px;
+    width: calc(100% - 22px);
+    min-height: 113px;
+    padding: 14px 12px;
+    overflow: hidden;
+  }
+
+  .header {
+    gap: 10px;
+  }
+
+  .desc {
+    display: none;
+  }
+
+  .reset {
+    display: none;
+  }
+
+  .genreFilter {
+    margin-left: 0;
+    gap: 3px;
+  }
+
+  .genreLabel {
+    display: none;
+  }
+
+  .genreChip {
+    padding: 2px 7px;
+    font-size: 9px;
+  }
+
+  .track {
+    margin-top: 16px;
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 15px;
+    padding: 0 5px 6px;
+    scrollbar-width: none;
+  }
+
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .item {
+    min-width: 54px;
+    flex-shrink: 0;
+  }
+
+  .track[data-mode='galaxy'] .item {
+    min-width: 76px;
+  }
+
+  .label {
+    font-size: 10px;
+  }
+}
